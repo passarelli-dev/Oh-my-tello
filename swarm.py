@@ -1,4 +1,14 @@
 # Librerie 
+    """
+    Il codice sopra riportato è uno script Python che controlla due droni Tello per volare in uno schema quadrato (base).
+    
+    :param messaggio: Il parametro "messaggio" è il comando che si desidera inviare al drone Tello. Può essere
+    può essere qualsiasi comando SDK Tello valido, come "takeoff", "land", "forward 100", ecc.
+    :param delay: Il parametro "delay" è la quantità di tempo in secondi che il programma aspetterà prima di inviare il comando successivo al drone Tello.
+    prima di inviare il comando successivo ai droni Tello. Viene utilizzato per controllare la tempistica e la sequenza
+    dei comandi inviati
+
+    """
 import socket
 import threading
 import time
