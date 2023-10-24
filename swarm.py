@@ -2,10 +2,14 @@
 import socket
 import threading
 import time
+import logging
 
 # Ogni istanza di tello ha un proprio IP, per comodita lasciamo la porta del socket di default
 telloUno = ('192.168.1.100', 8889)
 telloDue = ('192.168.1.101', 8889)
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # IP e porta del socket locale
 indirizzoLocaleUno = ('', 9010)
@@ -24,29 +28,29 @@ def send(message, delay):
   try:
     socketTelloUno.sendto(message.encode(), telloUno)
     socketTelloDue.sendto(message.encode(), telloDue)
-    print("Invio Messaggio: " + message)
+    logger.info("Invio Messaggio: %s", message)
   except Exception as e:
-    print("Errore nel mandare: " + str(e))
+    logger.error("Errore nel mandare: %s", str(e))
 
   # Stop di un tot di secondi
   time.sleep(delay)
 
 # Ricevi i messaggi da Tello
 def receive():
-  # Continua a ricevere i messaggi
-  while True:
-    # Cerca di ricevere il messaggio, altrimenti stampa l'eccezione
-    try:
-      risposta1, ip_address = socketTelloUno.recvfrom(128)
-      risposta2, ip_address = socketTelloDue.recvfrom(128)
-      print("Ricevuto response da TELLO #1: " + risposta1.decode(encoding='utf-8'))
-      print("Ricevuto response da Tello #2: " + risposta2.decode(encoding='utf-8'))
-    except Exception as e:
-      # Se c'è un errore, stampalo e chiudi il socket
-      socketTelloUno.close()
-      socketTelloDue.close()
-      print("Errore Ricevuto: " + str(e))
-      break
+# Continua a ricevere i messaggi
+    while True:
+# Cerca di ricevere il messaggio, altrimenti stampa l'eccezione
+        try:
+            risposta1, ip_address = socketTelloUno.recvfrom(128)
+            risposta2, ip_address = socketTelloDue.recvfrom(128)
+            logger.info("Ricevuto response da TELLO #1: %s", risposta1.decode(encoding='utf-8'))
+            logger.info("Ricevuto response da Tello #2: %s", risposta2.decode(encoding='utf-8'))
+        except Exception as e:
+# Se c'è un errore, stampalo e chiudi il socket
+            socketTelloUno.close()
+            socketTelloDue.close()
+            print("Errore Ricevuto: " + str(e))
+            break
       
 
 # Crea e avvia un thread per ricevere i messaggi in background
