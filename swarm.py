@@ -31,18 +31,18 @@ def send(message, delay):
   # Stop di un tot di secondi
   time.sleep(delay)
 
-# Receive the message from Tello
+# Ricevi i messaggi da Tello
 def receive():
-  # Continuously loop and listen for incoming messages
+  # Continua a ricevere i messaggi
   while True:
-    # Try to receive the message otherwise print the exception
+    # Cerca di ricevere il messaggio, altrimenti stampa l'eccezione
     try:
       risposta1, ip_address = socketTelloUno.recvfrom(128)
       risposta2, ip_address = socketTelloDue.recvfrom(128)
       print("Ricevuto response da TELLO #1: " + risposta1.decode(encoding='utf-8'))
       print("Ricevuto response da Tello #2: " + risposta2.decode(encoding='utf-8'))
     except Exception as e:
-      # If there's an error close the socket and break out of the loop
+      # Se c'è un errore, stampalo e chiudi il socket
       socketTelloUno.close()
       socketTelloDue.close()
       print("Errore Ricevuto: " + str(e))
