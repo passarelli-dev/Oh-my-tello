@@ -14,10 +14,7 @@ def frequenza_a_nota(frequenza):
     return f"{note[indice_nota]}{ottava}"
 
 # Inizializza lo sciame
-swarm = TelloSwarm.fromIps([
-    "192.168.1.100",
-    "192.168.1.103"
-])
+swarm = TelloSwarm.fromFile("ips.txt")
 
 # Carica la colonna sonora del Trono di Spade
 song = AudioSegment.from_file("got.mp3", format="mp3")

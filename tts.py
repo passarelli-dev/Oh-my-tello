@@ -27,10 +27,7 @@ def main():
     recognizer = sr.Recognizer()
 
     # Crea un'istanza di TelloSwarm
-    swarm = TelloSwarm.fromIps([
-        "192.168.1.103",
-        "192.168.1.101"
-    ])
+    swarm = TelloSwarm.fromFile("ips.txt")
 
     with sr.Microphone() as source:
         print("Say a command...")

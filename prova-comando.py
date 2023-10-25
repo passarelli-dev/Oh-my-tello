@@ -19,10 +19,7 @@ class FrontEnd(object):
         pygame.display.set_caption("Tello video stream")
         self.screen = pygame.display.set_mode([960, 720])
 
-        self.swarm = TelloSwarm.fromIps([
-            "192.168.1.103",
-            "192.168.1.101"
-        ])
+        self.swarm = TelloSwarm.fromFile("ips.txt")
 
         self.for_back_velocity = 0
         self.left_right_velocity = 0

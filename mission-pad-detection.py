@@ -1,9 +1,6 @@
 from djitellopy import TelLo, Swarm
 
-swarm = TelloSwarm.fromIps([
-    "192.168.1.101",
-    "192.168.1.103"
-]) # Crea lo sciame con i droni ai seguenti IP
+swarm = TelloSwarm.fromFile("ips.txt")
 
 swarm.connect() # Connettiti allo swarm (Gruppo)
 

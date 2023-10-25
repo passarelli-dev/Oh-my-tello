@@ -1,9 +1,6 @@
 from djitellopy import TelloSwarm
 
-swarm = TelloSwarm.fromIps([
-    "192.168.1.101",
-    "192.168.1.103"
-])
+swarm = TelloSwarm.fromFile("ips.txt")
 
 swarm.connect()
 

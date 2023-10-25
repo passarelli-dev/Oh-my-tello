@@ -38,13 +38,12 @@ pip install -r requirements.txt
 ```
 ## 3. Configura gli indirizzi IP dei droni
 
-Apri il file main.py e sostituisci gli indirizzi IP dei droni con quelli dei tuoi droni Tello.
+Apri il file ips.txt e sostituisci gli indirizzi IP con quelli dei tuoi droni Tello.
 
+Esempio: 
 ```bash
-swarm = TelloSwarm.fromIps([
-    "192.168.1.101",
-    "192.168.1.103"
-])
+192.168.1.101
+192.168.1.103
 ```
 
 ## 4. Esegui il programma
