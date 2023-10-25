@@ -45,8 +45,12 @@ Esempio:
 192.168.1.101
 192.168.1.103
 ```
+## 4. Entra nella cartella degli esempi
+```bash
+cd esempi/
+```bash
 
-## 4. Esegui il programma
+## 5. Esegui il programma
 ```bash
 python main.py
 ```
