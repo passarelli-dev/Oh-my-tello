@@ -2,6 +2,8 @@
 
 Questo programma è progettato per controllare uno sciame di droni Tello utilizzando la libreria djitellopy. Di seguito sono fornite istruzioni su come configurare e eseguire il programma.
 
+La libreria utilizzata è la seguente [Djitellopy](https://djitellopy.readthedocs.io/en/latest/swarm/), tutte le funzioni sono disponibili nella wiki
+
 # Istruzioni
 
 ## 1. Installazione
