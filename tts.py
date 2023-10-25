@@ -2,40 +2,46 @@ import speech_recognition as sr
 from djitellopy import TelloSwarm
 
 # Funzione per connettersi al drone Tello
-def connect_to_swarm():
-    swarm = TelloSwarm.fromIps([
-        "192.168.1.103",  # Inserisci gli indirizzi IP dei tuoi droni
-        "192.168.1.101"
-    ])
+def connect_to_swarm(swarm):
     swarm.connect()
     swarm.takeoff()
     print("Swarm connected!")
 
+# Funzione per interpretare e eseguire comandi specifici
+def execute_command(command, swarm):
+    if "accenditi" in command:
+        connect_to_swarm(swarm)
+    elif "gira a destra di" in command:
+        distance_str = command.split("di")[1].strip().split(" ")[0]  # Estrai la distanza dal comando
+        try:
+            distance = float(distance_str)
+            print(f"Gira a destra di {distance} centimetri.")
+            # Aggiungi qui la logica per far girare l'intero swarm a destra di una certa distanza
+            for drone in swarm.drones:
+                drone.move_right(distance)
+        except ValueError:
+            print("Errore: Impossibile interpretare la distanza.")
+
 # Funzione principale
 def main():
-    # Inizializza il riconoscitore vocale
     recognizer = sr.Recognizer()
 
-    # Registra il microfono come sorgente audio
+    # Crea un'istanza di TelloSwarm
+    swarm = TelloSwarm.fromIps([
+        "192.168.1.103",
+        "192.168.1.101"
+    ])
+
     with sr.Microphone() as source:
         print("Say a command...")
         while True:
             try:
-                # Ascolta l'audio
                 audio = recognizer.listen(source)
-
-                # Riconosci il testo dall'audio
-                command = recognizer.recognize_google(audio).lower()
-
-                # Stampa il comando riconosciuto
+                command = recognizer.recognize_google(audio, language="it-IT").lower()
                 print("You said:", command)
-
-                # Esegui l'azione corrispondente al comando
-                if "accenditi" in command:
-                    connect_to_swarm()
-
+                execute_command(command, swarm)
             except sr.UnknownValueError:
-                pass  # Ignora se il riconoscimento non ha avuto successo
+                pass
             except sr.RequestError as e:
                 print("Error connecting to Google Speech Recognition service; {0}".format(e))
 
