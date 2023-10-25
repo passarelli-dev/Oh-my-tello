@@ -4,14 +4,14 @@ import math
 from djitellopy import TelloSwarm
 import time
 
-def frequency_to_note(frequency):
+def frequenza_a_nota(frequenza):
     # Mappa le frequenze alle note
     frequenza_a = 440
-    notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-    half_steps = round(12 * math.log2(frequency / frequenza_a))
-    note_index = (half_steps + 9) % 12
-    octave = 4 + (half_steps + 9) // 12
-    return f"{notes[note_index]}{octave}"
+    note = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+    mezzo_passo = round(12 * math.log2(frequenza / frequenza_a))
+    indice_nota = (mezzo_passo + 9) % 12
+    ottava = 4 + (mezzo_passo + 9) // 12
+    return f"{note[indice_nota]}{ottava}"
 
 # Inizializza lo sciame
 swarm = TelloSwarm.fromIps([
@@ -37,7 +37,7 @@ note_buffer = []
 
 for i, chunk in enumerate(song[::1000]):
     if chunk.max >= threshold_frequency:
-        note = frequency_to_note(chunk.max)
+        note = frequenza_a_nota(chunk.max)
         print(f"Nota {note} rilevata nel chunk {i}")
 
         # Aggiungi la nota al buffer
